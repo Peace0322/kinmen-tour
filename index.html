@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金門旅遊案內所 | 昭和風行程表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        torinoko: '#E2D5BE', /* 鳥の子色 */
+                        rurikon: '#1B2A49',  /* 瑠璃紺 */
+                        yamabuki: '#F8B500', /* 山吹色 */
+                        retroRed: '#D94F3D',
+                        retroGreen: '#4A7B59'
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background-color: #E2D5BE;
+            background-image: radial-gradient(#1B2A49 0.5px, transparent 0.5px), radial-gradient(#1B2A49 0.5px, #E2D5BE 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-attachment: fixed;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* 昭和風卡片陰影 */
+        .showa-card {
+            border: 2px solid #1B2A49;
+            box-shadow: 4px 4px 0px #1B2A49;
+            transition: all 0.2s ease;
+        }
+        
+        .showa-card:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #1B2A49;
+        }
+
+        /* 標籤樣式 */
+        .tag-category {
+            border: 1px solid #1B2A49;
+            background-color: #E2D5BE;
+            color: #1B2A49;
+        }
+        
+        .tag-highlight-eat { background-color: #F8B500; color: #1B2A49; border: 1px solid #1B2A49; }
+        .tag-highlight-buy { background-color: #D94F3D; color: white; border: 1px solid #1B2A49; }
+        .tag-highlight-photo { background-color: #4A7B59; color: white; border: 1px solid #1B2A49; }
+
+        /* 隱藏捲軸 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-active {
+            background-color: #1B2A49;
+            color: #F8B500;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #1B2A49;
+            border-bottom: 2px solid #1B2A49;
+        }
+        
+        /* 地圖與編輯按鈕特效 */
+        .action-btn {
+            transition: all 0.2s ease;
+        }
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 編輯模式的視覺提示 */
+        [contenteditable="true"] {
+            outline: 2px dashed #a0aec0 !important;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 4px;
+            padding: 2px 4px;
+            cursor: text;
+        }
+
+        /* 彈出視窗動畫 */
+        .modal-enter { animation: slideUp 0.3s ease-out forwards; }
+        .modal-exit { animation: slideDown 0.3s ease-in forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @keyframes slideDown { from { transform: translateY(0); } to { transform: translateY(100%); } }
+    </style>
+</head>
+<body class="text-rurikon pb-24 flex justify-center">
+
+    <div class="w-full max-w-md min-h-screen bg-torinoko relative pb-6 shadow-2xl overflow-hidden">
+        
+        <header class="bg-rurikon text-torinoko p-5 text-center relative border-b-4 border-yamabuki">
+            <h1 class="text-2xl font-bold tracking-widest mt-2">金門旅遊案內</h1>
+            <p class="text-xs mt-1 tracking-widest opacity-80">KINMEN TOUR GUIDE</p>
+            <div class="absolute top-2 left-2 right-2 bottom-2 border border-torinoko opacity-30 pointer-events-none"></div>
+        </header>
+
+        <div class="flex justify-between px-4 mt-4 font-bold">
+            <button onclick="switchTab('day1')" id="btn-day1" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-0 border-rurikon showa-card tab-active z-10 translate-y-[2px]">
+                Day 1<br><span class="text-xs font-normal">6/27 (六)</span>
+            </button>
+            <button onclick="switchTab('day2')" id="btn-day2" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
+                Day 2<br><span class="text-xs font-normal">6/28 (日)</span>
+            </button>
+            <button onclick="switchTab('day3')" id="btn-day3" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
+                Day 3<br><span class="text-xs font-normal">6/29 (一)</span>
+            </button>
+        </div>
+
+        <main class="px-4 mt-4">
+
+            <div id="day1" class="space-y-5">
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">07:50 啟程</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">台中 ✈ 金門</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=台中國際機場" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <p class="editable-content text-sm mt-1 text-gray-600">立榮航空 B7-8955 (RMQ 07:50 - KNH 08:55)</p>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-plane"></i> 交通</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">11:30 午餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">喬安牧場</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+喬安牧場" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-eat font-bold">#必吃</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">酒糟牛肉麵上桌時的熱氣與大塊牛肉特寫最誘人！</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">門口或周邊白線可停車。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">小金門 (烈嶼)</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+烈嶼鄉" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <p class="editable-content text-sm mt-1 text-gray-600">湖井頭戰史館、沙溪堡、九宮坑道</p>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-camera"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">沙溪堡的木棧道延伸感極佳，夕陽時分最美；坑道內光線暗，建議手機貼牆穩住拍攝。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">過金門大橋後，各景點皆有專屬免費停車場。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">膩咖啡</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+膩咖啡" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-mug-hot"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">廢墟老屋改建，坐在窗邊自然光灑落，自帶復古濾鏡。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">位於東沙聚落巷弄狹窄，建議停在外圍大馬路步行進入。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:00 晚餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">喜豐樓</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+喜豐樓" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">合菜擺盤豐富，適合站起來拍滿桌豐盛的俯視角合照。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">餐廳外圍好停車。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">晚上 景點</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">水頭聚落</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+水頭聚落" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-landmark"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">得月樓夜間點燈後非常浪漫，利用倒影或剪影拍攝更有風味。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">水頭聚落外圍有大型免費停車場。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">21:30 宵夜</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">金城飯店</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+金城飯店" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-eat font-bold">#必吃</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">招牌炸排骨油亮酥脆的外皮是重點，記得補點光。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">位於金城鎮市區，汽車極難停，建議從旅館步行或騎機車前往。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">住宿</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">海福商務旅館</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+海福商務旅館" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-bed"></i> 酒店</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">旅館有配合之特約停車場或周邊車格。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
+                    <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">初夏金門紫外線強烈，海邊風大但日照炎熱。</span></p>
+                    <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">輕便透氣夏裝、防曬薄外套（進坑道也保暖）、好走抗滑的運動鞋。</span></p>
+                </div>
+            </div>
+
+            <div id="day2" class="space-y-5 hidden">
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">早餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">永春廣東粥</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+永春廣東粥" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-eat font-bold">#必吃</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">捕捉油條沾進無米粥裡的「靈魂瞬間」！</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">莒光路周邊早上易有管制或人潮，騎機車較方便停放。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">上午 景點</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">翟山坑道</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+翟山坑道" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-camera"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">A字型水道與花崗岩的完美水面倒影是金門經典，記得開啟手機夜景模式。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">園區內有大型停車場。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">11:30 午餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">喜悅小館</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+喜悅小館" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">精緻的家常料理，可以拍溫馨的用餐氣氛。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">周邊找白線或附近空地停車。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">北山、古寧頭</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+古寧頭戰史館" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-landmark"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">北山播音牆適合拍人在牆下仰望的大景；北山洋樓則必拍歷史彈孔特寫。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">古寧頭戰史館及播音牆皆有專用停車場。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">百花洋樓喫茶</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+百花洋樓" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-mug-hot"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">復古洋樓建築與精緻甜點的結合，人在洋樓拱門下拍照超有氣質。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">附近找空曠處臨停即可。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:00 晚餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">記德海鮮餐廳</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+記德海鮮餐廳" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-eat font-bold">#必吃</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">招牌「高粱嗆蟹」必拍，鮮艷蟹肉與高粱酒香的視覺呈現。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">餐廳前方廣場好停車。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">夜間 活動</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">夜遊後浦小鎮</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+清金門鎮總兵署" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-person-walking"></i> 活動</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">清金門鎮總兵署的紅燈籠夜景必拍，跟著導覽員的步伐記錄老街氛圍。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">總兵署旁有停車場，或將車停於外圍步行。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">宵夜</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">大廟口熱炒</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+大廟口海鮮熱炒" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">拍出廟口辦桌、露天吃熱炒的豪邁在地氛圍。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">夜間市區可於路邊找車格臨停。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">住宿</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">海福商務旅館</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+海福商務旅館" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-bed"></i> 酒店</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
+                    <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">古寧頭海邊地形開闊，海風較強大，帽子記得戴緊。</span></p>
+                    <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">裙裝或短褲皆可，夜遊後浦小鎮需走動較長時間，務必穿著好走的休閒鞋。</span></p>
+                </div>
+            </div>
+
+            <div id="day3" class="space-y-5 hidden">
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">早餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">金許園</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+金許園山外創始店" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-eat font-bold">#必吃</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">牛肉餡餅咬開爆汁的邪惡剖面圖。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">山外圓環周邊或太湖附近好停車。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">上午 景點</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">馬山觀測站、獅山砲陣地</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+獅山砲陣地" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-camera"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">獅山砲操表演務必錄影！馬山觀測站外有著「天下第一哨」的無敵海景。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">兩處景點皆有腹地廣大的停車場。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">午餐</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">新天地海產店</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+新天地海產店" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">新鮮肥美的海鮮大餐特寫。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">復國墩漁港周邊極好停車。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">沙美摩洛哥</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+沙美摩洛哥" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-camera"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">在土黃色廢墟牆垣間，利用光影拍出中東異國風情的網美照。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">沙美老街周邊有公共停車場。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">愜意甜點工作室</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門+愜意甜點工作室" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-mug-hot"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-buy font-bold">#必買</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">閩南古厝中庭吃法式甜點的衝突美感，甜點造型精緻必拍。</span></p>
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">位於沙美巷弄內，車停沙美老街外圍走進去。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 showa-card relative group">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:20 返程</div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-bold flex items-center pr-8">
+                            <span class="editable-content">金門 ✈ 台中</span>
+                            <a href="https://www.google.com/maps/search/?api=1&query=金門航空站" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
+                        </h3>
+                        <p class="editable-content text-sm mt-1 text-gray-600">立榮航空 B7-8962 (KNH 18:20 - RMQ 19:20)</p>
+                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-plane"></i> 交通</span></div>
+                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
+                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">前往機場前記得將租車加滿油歸還。</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
+                    <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">準備滿載而歸，把握最後一天好天氣拍美照。</span></p>
+                    <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">由於要去沙美摩洛哥，推薦穿著大地色、白色或亮色系服飾，拍照效果最佳！</span></p>
+                </div>
+            </div>
+
+        </main>
+
+        <nav class="fixed bottom-0 w-full max-w-md bg-rurikon text-torinoko flex justify-around py-3 border-t-4 border-yamabuki z-50 rounded-t-2xl shadow-[0_-4px_10px_rgba(0,0,0,0.2)]">
+            <button class="flex flex-col items-center opacity-100 hover:opacity-80 transition-opacity cursor-pointer">
+                <i class="fa-solid fa-calendar-check text-xl mb-1 text-yamabuki"></i>
+                <span class="text-[10px] font-bold">行程案內</span>
+            </button>
+            <a id="map-explore-link" href="https://www.google.com/maps/dir/金門航空站/金門喬安牧場/金門沙溪堡/金門膩咖啡/金門喜豐樓/金門水頭聚落/金門金城飯店/金門海福商務旅館" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center opacity-50 hover:opacity-80 transition-opacity text-torinoko no-underline">
+                <i class="fa-solid fa-map-location-dot text-xl mb-1"></i>
+                <span class="text-[10px] font-bold">地圖探索</span>
+            </a>
+            <button class="flex flex-col items-center opacity-50 hover:opacity-80 transition-opacity cursor-pointer" onclick="toggleAccountingModal()">
+                <i class="fa-solid fa-file-invoice-dollar text-xl mb-1"></i>
+                <span class="text-[10px] font-bold">逐筆結算</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <div id="accounting-modal" class="fixed inset-0 bg-rurikon/80 z-[100] hidden flex-col justify-end w-full max-w-md mx-auto">
+        <div class="bg-torinoko rounded-t-3xl w-full h-[90vh] p-5 pb-10 shadow-2xl overflow-y-auto relative modal-enter">
+            
+            <button onclick="toggleAccountingModal()" class="absolute top-5 right-5 text-2xl text-rurikon hover:text-retroRed transition-colors z-10">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold border-b-2 border-rurikon pb-3 mb-4 text-rurikon mt-1 pr-8"><i class="fa-solid fa-calculator mr-2 text-yamabuki"></i>逐筆分帳所</h2>
+            
+            <div class="bg-white p-4 rounded-xl showa-card mb-6">
+                <div class="flex flex-col gap-3">
+                    <input type="text" id="acc-item" placeholder="消費項目 (例: 租車、晚餐)" class="w-full p-3 border-2 border-rurikon rounded bg-torinoko/20 focus:outline-none focus:bg-white text-rurikon font-bold text-lg">
+                    <div class="flex gap-2">
+                        <input type="number" id="acc-amount" placeholder="金額 $" class="w-1/2 p-3 border-2 border-rurikon rounded bg-torinoko/20 focus:outline-none focus:bg-white text-rurikon font-bold text-lg">
+                        <select id="acc-payer" class="w-1/2 p-3 border-2 border-rurikon rounded bg-torinoko/20 focus:outline-none focus:bg-white text-rurikon font-bold text-lg">
+                            <option value="" disabled selected>誰墊錢？</option>
+                            <option value="Lee">Lee</option>
+                            <option value="Lin">Lin</option>
+                            <option value="Song">Song</option>
+                            <option value="Wu">Wu</option>
+                        </select>
+                    </div>
+                    
+                    <div class="bg-torinoko/30 border-2 border-rurikon rounded-lg p-3 text-rurikon">
+                        <div class="font-bold mb-3 text-base">誰參與這筆分攤？(預設全選)</div>
+                        <div class="flex justify-between px-1">
+                            <label class="flex items-center gap-2 cursor-pointer font-bold text-lg"><input type="checkbox" name="share-member" value="Lee" checked class="accent-rurikon w-5 h-5"> Lee</label>
+                            <label class="flex items-center gap-2 cursor-pointer font-bold text-lg"><input type="checkbox" name="share-member" value="Lin" checked class="accent-rurikon w-5 h-5"> Lin</label>
+                            <label class="flex items-center gap-2 cursor-pointer font-bold text-lg"><input type="checkbox" name="share-member" value="Song" checked class="accent-rurikon w-5 h-5"> Song</label>
+                            <label class="flex items-center gap-2 cursor-pointer font-bold text-lg"><input type="checkbox" name="share-member" value="Wu" checked class="accent-rurikon w-5 h-5"> Wu</label>
+                        </div>
+                    </div>
+
+                    <button onclick="addExpense()" class="w-full bg-rurikon text-yamabuki font-bold py-3 text-lg rounded-lg border-2 border-rurikon hover:bg-yamabuki hover:text-rurikon transition-colors mt-2 shadow-md active:translate-y-1">
+                        <i class="fa-solid fa-plus mr-1"></i> 新增此筆花費
+                    </button>
+                </div>
+            </div>
+
+            <div class="border-2 border-rurikon bg-white rounded-xl p-4 shadow-inner mb-6">
+                <h3 class="font-bold text-rurikon mb-3 text-lg border-b-2 border-gray-200 pb-2">📝 逐筆分帳明細</h3>
+                <ul id="expense-list" class="space-y-4">
+                    </ul>
+            </div>
+
+            <button onclick="copyToLine()" class="w-full bg-[#06C755] text-white font-bold text-lg py-4 rounded-xl shadow-[0_5px_0_#049640] active:translate-y-1 active:shadow-[0_0px_0_#049640] transition-all flex justify-center items-center gap-2 mb-4">
+                <i class="fa-brands fa-line text-2xl"></i> 複製逐筆明細到 LINE
+            </button>
+            
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 1. 分頁與地圖切換
+        // ----------------------------------------------------
+        const routeMaps = {
+            'day1': 'https://www.google.com/maps/dir/金門航空站/金門喬安牧場/金門沙溪堡/金門膩咖啡/金門喜豐樓/金門水頭聚落/金門金城飯店/金門海福商務旅館',
+            'day2': 'https://www.google.com/maps/dir/金門永春廣東粥/金門翟山坑道/金門喜悅小館/金門古寧頭戰史館/金門百花洋樓/金門記德海鮮餐廳/金門清金門鎮總兵署/金門大廟口海鮮熱炒/金門海福商務旅館',
+            'day3': 'https://www.google.com/maps/dir/金門海福商務旅館/金門金許園山外創始店/金門獅山砲陣地/金門新天地海產店/金門沙美摩洛哥/金門愜意甜點工作室/金門航空站'
+        };
+
+        function switchTab(day) {
+            document.getElementById('day1').classList.add('hidden');
+            document.getElementById('day2').classList.add('hidden');
+            document.getElementById('day3').classList.add('hidden');
+            const btns = ['btn-day1', 'btn-day2', 'btn-day3'];
+            btns.forEach(btn => {
+                const el = document.getElementById(btn);
+                el.classList.remove('tab-active', 'border-b-0', 'z-10', 'translate-y-[2px]');
+                el.classList.add('tab-inactive', 'border-b-2');
+            });
+            document.getElementById(day).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-${day}`);
+            activeBtn.classList.remove('tab-inactive', 'border-b-2');
+            activeBtn.classList.add('tab-active', 'border-b-0', 'z-10', 'translate-y-[2px]');
+            document.getElementById('map-explore-link').href = routeMaps[day];
+        }
+
+        // ----------------------------------------------------
+        // 2. 編輯功能
+        // ----------------------------------------------------
+        function toggleEdit(btn) {
+            const card = btn.closest('.group');
+            const icon = btn.querySelector('.edit-icon');
+            const isEditing = card.classList.contains('is-editing');
+            const editables = card.querySelectorAll('.editable-content');
+            if (isEditing) {
+                card.classList.remove('is-editing');
+                icon.classList.remove('fa-check', 'text-green-600');
+                icon.classList.add('fa-pen');
+                editables.forEach(el => el.contentEditable = "false");
+                saveItineraryData();
+            } else {
+                card.classList.add('is-editing');
+                icon.classList.remove('fa-pen');
+                icon.classList.add('fa-check', 'text-green-600');
+                editables.forEach(el => el.contentEditable = "true");
+                if(editables.length > 0) editables[0].focus();
+            }
+        }
+
+        function saveItineraryData() {
+            const editables = document.querySelectorAll('.editable-content');
+            const data = {};
+            editables.forEach((el, index) => { data['item-' + index] = el.innerText; });
+            localStorage.setItem('kinmenItineraryData', JSON.stringify(data));
+        }
+
+        function loadItineraryData() {
+            const savedData = localStorage.getItem('kinmenItineraryData');
+            if (!savedData) return;
+            const data = JSON.parse(savedData);
+            document.querySelectorAll('.editable-content').forEach((el, index) => {
+                if (data['item-' + index] !== undefined) el.innerText = data['item-' + index];
+            });
+        }
+
+        // ----------------------------------------------------
+        // 3. 逐筆結算功能 (收合展開、整體捲動)
+        // ----------------------------------------------------
+        let expenses = [];
+        const members = ['Lee', 'Lin', 'Song', 'Wu'];
+
+        function toggleAccountingModal() {
+            const modal = document.getElementById('accounting-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                updateAccountingUI();
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function addExpense() {
+            const itemInput = document.getElementById('acc-item');
+            const amountInput = document.getElementById('acc-amount');
+            const payerInput = document.getElementById('acc-payer');
+            const checkboxes = document.querySelectorAll('input[name="share-member"]:checked');
+
+            const item = itemInput.value.trim();
+            const amount = parseFloat(amountInput.value);
+            const payer = payerInput.value;
+            const sharedBy = Array.from(checkboxes).map(cb => cb.value);
+
+            if (!item || isNaN(amount) || amount <= 0 || !payer) {
+                alert('請完整輸入項目、正確的金額，並選擇墊錢的人！');
+                return;
+            }
+            if (sharedBy.length === 0) {
+                alert('請至少選擇一位參與分攤的人！');
+                return;
+            }
+
+            // 新增時預設為「未結清」且「展開」狀態，方便查看
+            expenses.unshift({ id: Date.now(), item, amount, payer, sharedBy, isSettled: false, isExpanded: true });
+            
+            itemInput.value = '';
+            amountInput.value = '';
+            payerInput.value = '';
+            saveExpenses();
+            updateAccountingUI();
+        }
+
+        function deleteExpense(id) {
+            expenses = expenses.filter(exp => exp.id !== id);
+            saveExpenses();
+            updateAccountingUI();
+        }
+
+        // 切換單筆的展開/收合狀態
+        function toggleExpand(id) {
+            const expIndex = expenses.findIndex(e => e.id === id);
+            if(expIndex > -1) {
+                expenses[expIndex].isExpanded = !expenses[expIndex].isExpanded;
+                saveExpenses();
+                updateAccountingUI();
+            }
+        }
+
+        // 切換單筆結清狀態，不觸發收合事件 (使用 stopPropagation)
+        function toggleSettled(event, id) {
+            event.stopPropagation();
+            const expIndex = expenses.findIndex(e => e.id === id);
+            if(expIndex > -1) {
+                expenses[expIndex].isSettled = !expenses[expIndex].isSettled;
+                saveExpenses();
+                updateAccountingUI();
+            }
+        }
+
+        function updateAccountingUI() {
+            const listEl = document.getElementById('expense-list');
+
+            listEl.innerHTML = '';
+            if (expenses.length === 0) {
+                listEl.innerHTML = '<li class="text-gray-400 italic text-center text-lg py-10">目前無消費紀錄</li>';
+            } else {
+                expenses.forEach(exp => {
+                    const sharers = exp.sharedBy && exp.sharedBy.length > 0 ? exp.sharedBy : members;
+                    let splitAmount = Math.round(exp.amount / sharers.length);
+
+                    let debtors = sharers.filter(s => s !== exp.payer);
+                    let transferText = '';
+
+                    if (debtors.length > 0) {
+                        transferText = `👉 <span class="font-bold text-retroRed">${debtors.join(', ')}</span> 各給 ${exp.payer} <span class="text-yamabuki font-bold bg-rurikon px-2 py-0.5 rounded">$${splitAmount}</span>`;
+                    } else {
+                        transferText = `<span class="text-gray-500"><i class="fa-solid fa-check"></i> 自付自用，無需轉帳</span>`;
+                    }
+
+                    // 處理結清狀態的視覺效果
+                    const isSettled = exp.isSettled || false;
+                    const isExpanded = exp.isExpanded || false;
+                    
+                    const opacityClass = isSettled ? 'opacity-50 grayscale' : '';
+                    const statusBtnClass = isSettled 
+                        ? 'bg-green-100 text-green-700 border-green-400 hover:bg-green-200' 
+                        : 'bg-torinoko/50 text-rurikon border-rurikon hover:bg-yamabuki hover:text-white hover:border-yamabuki';
+                    const statusIcon = isSettled ? '<i class="fa-solid fa-check-circle"></i> 已結清' : '<i class="fa-regular fa-circle"></i> 標記為結清';
+                    
+                    // 簡易狀態文字
+                    const briefStatus = isSettled ? '<span class="text-green-600">✅ 已結清</span>' : '<span class="text-retroRed">⚠️ 未結清</span>';
+
+                    const li = document.createElement('li');
+                    li.className = `flex flex-col border-2 border-rurikon/20 bg-gray-50 rounded-xl transition-all duration-300 ${opacityClass}`;
+                    
+                    // 組合 HTML：Header(簡易明細) + Detail(完整明細)
+                    li.innerHTML = `
+                        <div class="p-4 cursor-pointer flex justify-between items-center" onclick="toggleExpand(${exp.id})">
+                            <div class="flex flex-col">
+                                <span class="text-rurikon font-bold text-xl flex items-center">
+                                    <i class="fa-solid fa-tag text-yamabuki mr-2"></i>${exp.item}
+                                </span>
+                                <span class="text-sm text-gray-500 mt-2">
+                                    <i class="fa-solid fa-wallet"></i> ${exp.payer} 墊錢 | <i class="fa-solid fa-users"></i> ${sharers.length}人分攤
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="text-right">
+                                    <div class="font-bold text-rurikon text-xl mb-1">$${exp.amount}</div>
+                                    <div class="font-bold text-xs">${briefStatus}</div>
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-gray-400 text-lg transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}"></i>
+                            </div>
+                        </div>
+
+                        <div class="${isExpanded ? 'block' : 'hidden'} px-4 pb-4 pt-1 border-t border-gray-200 bg-white rounded-b-xl">
+                            <div class="bg-torinoko/10 p-3 rounded-lg border border-yamabuki/50 text-base my-3 shadow-sm leading-relaxed">
+                                ${transferText}
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <button onclick="event.stopPropagation(); deleteExpense(${exp.id})" class="text-gray-400 hover:text-retroRed font-bold transition-colors px-2 py-2">
+                                    <i class="fa-solid fa-trash-can mr-1"></i> 刪除此筆
+                                </button>
+                                <button onclick="toggleSettled(event, ${exp.id})" class="px-5 py-2 rounded-full border-2 text-sm font-bold transition-colors ${statusBtnClass} shadow-sm active:translate-y-1">
+                                    ${statusIcon}
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    listEl.appendChild(li);
+                });
+            }
+        }
+
+        function copyToLine() {
+            if (expenses.length === 0) {
+                alert('目前沒有帳目可以複製喔！');
+                return;
+            }
+
+            let lineText = `【金門旅遊案內 - 逐筆結算明細】\n\n`;
+
+            // 為了讓 LINE 的顯示按照時間順序（舊到新），將 array 反轉回來
+            const sortedExpenses = [...expenses].reverse();
+
+            sortedExpenses.forEach(exp => {
+                const sharers = exp.sharedBy && exp.sharedBy.length > 0 ? exp.sharedBy : members;
+                let splitAmount = Math.round(exp.amount / sharers.length);
+                let debtors = sharers.filter(s => s !== exp.payer);
+                let settledText = exp.isSettled ? "(✅ 已結清)" : "(⚠️ 未結清)";
+
+                lineText += `📌 ${exp.item}：$${exp.amount} ${settledText}\n`;
+                lineText += `   墊錢：${exp.payer} | 分攤：${sharers.length}人\n`;
+
+                if (debtors.length > 0) {
+                    lineText += `   👉 ${debtors.join(', ')} 各轉給 ${exp.payer} $${splitAmount}\n\n`;
+                } else {
+                    lineText += `   ✅ ${exp.payer} 自付自用\n\n`;
+                }
+            });
+
+            navigator.clipboard.writeText(lineText).then(() => {
+                alert('✅ 逐筆結算明細已複製！可以直接貼上到 LINE 群組囉。');
+            }).catch(err => {
+                alert('複製失敗，請手動選取複製。');
+            });
+        }
+
+        function saveExpenses() {
+            localStorage.setItem('kinmenExpenses', JSON.stringify(expenses));
+        }
+
+        function loadExpenses() {
+            const saved = localStorage.getItem('kinmenExpenses');
+            if (saved) {
+                // 為了避免版面過長，重整頁面載入時，將所有明細的「展開狀態」預設為關閉
+                let parsedExpenses = JSON.parse(saved);
+                parsedExpenses.forEach(exp => exp.isExpanded = false); 
+                expenses = parsedExpenses;
+            }
+        }
+
+        window.onload = () => {
+            loadItineraryData();
+            loadExpenses();
+        };
+    </script>
+</body>
+</html>
