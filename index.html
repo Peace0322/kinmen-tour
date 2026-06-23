@@ -93,9 +93,7 @@
 
         /* 彈出視窗動畫 */
         .modal-enter { animation: slideUp 0.3s ease-out forwards; }
-        .modal-exit { animation: slideDown 0.3s ease-in forwards; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        @keyframes slideDown { from { transform: translateY(0); } to { transform: translateY(100%); } }
     </style>
 </head>
 <body class="text-rurikon pb-24 flex justify-center">
@@ -109,13 +107,13 @@
         </header>
 
         <div class="flex justify-between px-4 mt-4 font-bold">
-            <button onclick="switchTab('day1')" id="btn-day1" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-0 border-rurikon showa-card tab-active z-10 translate-y-[2px]">
+            <button onclick="window.switchTab('day1')" id="btn-day1" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-0 border-rurikon showa-card tab-active z-10 translate-y-[2px]">
                 Day 1<br><span class="text-xs font-normal">6/27 (六)</span>
             </button>
-            <button onclick="switchTab('day2')" id="btn-day2" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
+            <button onclick="window.switchTab('day2')" id="btn-day2" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
                 Day 2<br><span class="text-xs font-normal">6/28 (日)</span>
             </button>
-            <button onclick="switchTab('day3')" id="btn-day3" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
+            <button onclick="window.switchTab('day3')" id="btn-day3" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
                 Day 3<br><span class="text-xs font-normal">6/29 (一)</span>
             </button>
         </div>
@@ -124,7 +122,7 @@
 
             <div id="day1" class="space-y-5">
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">07:50 啟程</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -137,7 +135,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">11:30 午餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -153,7 +151,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -170,7 +168,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -186,7 +184,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:00 晚餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -202,7 +200,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">晚上 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -218,7 +216,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">21:30 宵夜</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -234,7 +232,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">住宿</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -249,7 +247,7 @@
                 </div>
 
                 <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
                     <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">初夏金門紫外線強烈，海邊風大但日照炎熱。</span></p>
                     <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">輕便透氣夏裝、防曬薄外套（進坑道也保暖）、好走抗滑的運動鞋。</span></p>
@@ -258,7 +256,7 @@
 
             <div id="day2" class="space-y-5 hidden">
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">早餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -274,7 +272,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">上午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -290,7 +288,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">11:30 午餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -306,7 +304,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -322,7 +320,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -338,7 +336,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:00 晚餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -354,7 +352,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">夜間 活動</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -370,7 +368,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">宵夜</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -386,7 +384,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">住宿</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -398,7 +396,7 @@
                 </div>
 
                 <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
                     <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">古寧頭海邊地形開闊，海風較強大，帽子記得戴緊。</span></p>
                     <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">裙裝或短褲皆可，夜遊後浦小鎮需走動較長時間，務必穿著好走的休閒鞋。</span></p>
@@ -407,7 +405,7 @@
 
             <div id="day3" class="space-y-5 hidden">
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">早餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -423,7 +421,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">上午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -439,7 +437,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">午餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -455,7 +453,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -471,7 +469,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -487,7 +485,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:20 返程</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -503,7 +501,7 @@
                 </div>
 
                 <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
-                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
                     <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">準備滿載而歸，把握最後一天好天氣拍美照。</span></p>
                     <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">由於要去沙美摩洛哥，推薦穿著大地色、白色或亮色系服飾，拍照效果最佳！</span></p>
@@ -513,7 +511,7 @@
         </main>
 
         <nav class="fixed bottom-0 w-full max-w-md bg-rurikon text-torinoko flex justify-around py-3 border-t-4 border-yamabuki z-50 rounded-t-2xl shadow-[0_-4px_10px_rgba(0,0,0,0.2)]">
-            <button class="flex flex-col items-center opacity-100 hover:opacity-80 transition-opacity cursor-pointer">
+            <button class="flex flex-col items-center opacity-100 hover:opacity-80 transition-opacity cursor-pointer" onclick="document.getElementById('accounting-modal').classList.add('hidden')">
                 <i class="fa-solid fa-calendar-check text-xl mb-1 text-yamabuki"></i>
                 <span class="text-[10px] font-bold">行程案內</span>
             </button>
@@ -521,18 +519,17 @@
                 <i class="fa-solid fa-map-location-dot text-xl mb-1"></i>
                 <span class="text-[10px] font-bold">地圖探索</span>
             </a>
-            <button class="flex flex-col items-center opacity-50 hover:opacity-80 transition-opacity cursor-pointer" onclick="toggleAccountingModal()">
+            <button class="flex flex-col items-center opacity-50 hover:opacity-80 transition-opacity cursor-pointer" onclick="window.toggleAccountingModal()">
                 <i class="fa-solid fa-file-invoice-dollar text-xl mb-1"></i>
                 <span class="text-[10px] font-bold">逐筆結算</span>
             </button>
         </nav>
-
     </div>
 
     <div id="accounting-modal" class="fixed inset-0 bg-rurikon/80 z-[100] hidden flex-col justify-end w-full max-w-md mx-auto">
         <div class="bg-torinoko rounded-t-3xl w-full h-[90vh] p-5 pb-10 shadow-2xl overflow-y-auto relative modal-enter">
             
-            <button onclick="toggleAccountingModal()" class="absolute top-5 right-5 text-2xl text-rurikon hover:text-retroRed transition-colors z-10">
+            <button onclick="window.toggleAccountingModal()" class="absolute top-5 right-5 text-2xl text-rurikon hover:text-retroRed transition-colors z-10">
                 <i class="fa-solid fa-circle-xmark"></i>
             </button>
             
@@ -562,36 +559,117 @@
                         </div>
                     </div>
 
-                    <button onclick="addExpense()" class="w-full bg-rurikon text-yamabuki font-bold py-3 text-lg rounded-lg border-2 border-rurikon hover:bg-yamabuki hover:text-rurikon transition-colors mt-2 shadow-md active:translate-y-1">
+                    <button onclick="window.addExpense()" class="w-full bg-rurikon text-yamabuki font-bold py-3 text-lg rounded-lg border-2 border-rurikon hover:bg-yamabuki hover:text-rurikon transition-colors mt-2 shadow-md active:translate-y-1">
                         <i class="fa-solid fa-plus mr-1"></i> 新增此筆花費
                     </button>
                 </div>
             </div>
 
             <div class="border-2 border-rurikon bg-white rounded-xl p-4 shadow-inner mb-6">
-                <h3 class="font-bold text-rurikon mb-3 text-lg border-b-2 border-gray-200 pb-2">📝 逐筆分帳明細</h3>
+                <h3 class="font-bold text-rurikon mb-3 text-lg border-b-2 border-gray-200 pb-2 flex justify-between">
+                    <span>📝 逐筆分帳明細</span>
+                    <span id="cloud-status" class="text-xs text-green-600 self-end"></span>
+                </h3>
                 <ul id="expense-list" class="space-y-4">
                     </ul>
             </div>
 
-            <button onclick="copyToLine()" class="w-full bg-[#06C755] text-white font-bold text-lg py-4 rounded-xl shadow-[0_5px_0_#049640] active:translate-y-1 active:shadow-[0_0px_0_#049640] transition-all flex justify-center items-center gap-2 mb-4">
+            <button onclick="window.copyToLine()" class="w-full bg-[#06C755] text-white font-bold text-lg py-4 rounded-xl shadow-[0_5px_0_#049640] active:translate-y-1 active:shadow-[0_0px_0_#049640] transition-all flex justify-center items-center gap-2 mb-4">
                 <i class="fa-brands fa-line text-2xl"></i> 複製逐筆明細到 LINE
             </button>
-            
         </div>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        // 修正引入 firebase-firestore.js
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+        // 您的 Firebase 專案設定
+        const firebaseConfig = {
+            apiKey: "AIzaSyAlb9dZO_8xdboc2Kj1Tg7M_ATU4e-qTIg",
+            authDomain: "kinmen-tour2.firebaseapp.com",
+            projectId: "kinmen-tour2",
+            storageBucket: "kinmen-tour2.firebasestorage.app",
+            messagingSenderId: "910217771036",
+            appId: "1:910217771036:web:230f2456fe69c41523c7d9",
+            measurementId: "G-H5MXP77W8N"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // 設定一個固定的文件 ID 來當作這個行程的房間
+        const TOUR_DOC_REF = doc(db, "tours", "kinmen2026"); 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusEl = document.getElementById('cloud-status');
+            if(statusEl) statusEl.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-blue-500"></i> 雲端同步中';
+        });
+
+        // 儲存行程表
+        window.saveItineraryData = async function() {
+            const editables = document.querySelectorAll('.editable-content');
+            const data = {};
+            editables.forEach((el, index) => { data['item-' + index] = el.innerText; });
+            await setDoc(TOUR_DOC_REF, { itinerary: data }, { merge: true });
+        };
+
+        // 儲存記帳明細
+        window.saveExpenses = async function() {
+            // 上傳前先清理掉 UI 專用的 isExpanded 狀態，避免覆蓋別人的展開視窗
+            const cleanExpenses = window.expenses.map(e => {
+                const { isExpanded, ...rest } = e;
+                return rest;
+            });
+            await setDoc(TOUR_DOC_REF, { expenses: cleanExpenses }, { merge: true });
+        };
+
+        // 即時監聽雲端資料
+        onSnapshot(TOUR_DOC_REF, (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                
+                // 1. 更新行程表
+                if (data.itinerary) {
+                    document.querySelectorAll('.editable-content').forEach((el, index) => {
+                        if (data.itinerary['item-' + index] !== undefined) {
+                            if(el.innerText !== data.itinerary['item-' + index]) {
+                                el.innerText = data.itinerary['item-' + index];
+                            }
+                        }
+                    });
+                }
+
+                // 2. 更新記帳明細
+                if (data.expenses) {
+                    // 為了不打斷使用者當下正在展開查看的狀態，保留原有的 isExpanded
+                    const expandedIds = window.expenses.filter(e => e.isExpanded).map(e => e.id);
+                    window.expenses = data.expenses.map(e => ({
+                        ...e,
+                        isExpanded: expandedIds.includes(e.id)
+                    }));
+
+                    if (typeof window.updateAccountingUI === 'function') {
+                        window.updateAccountingUI();
+                    }
+                }
+            }
+        });
+    </script>
+
     <script>
-        // ----------------------------------------------------
-        // 1. 分頁與地圖切換
-        // ----------------------------------------------------
+        // 定義全域變數
+        window.expenses = [];
+        window.members = ['Lee', 'Lin', 'Song', 'Wu'];
+
         const routeMaps = {
             'day1': 'https://www.google.com/maps/dir/金門航空站/金門喬安牧場/金門沙溪堡/金門膩咖啡/金門喜豐樓/金門水頭聚落/金門金城飯店/金門海福商務旅館',
             'day2': 'https://www.google.com/maps/dir/金門永春廣東粥/金門翟山坑道/金門喜悅小館/金門古寧頭戰史館/金門百花洋樓/金門記德海鮮餐廳/金門清金門鎮總兵署/金門大廟口海鮮熱炒/金門海福商務旅館',
             'day3': 'https://www.google.com/maps/dir/金門海福商務旅館/金門金許園山外創始店/金門獅山砲陣地/金門新天地海產店/金門沙美摩洛哥/金門愜意甜點工作室/金門航空站'
         };
 
-        function switchTab(day) {
+        window.switchTab = function(day) {
             document.getElementById('day1').classList.add('hidden');
             document.getElementById('day2').classList.add('hidden');
             document.getElementById('day3').classList.add('hidden');
@@ -608,10 +686,7 @@
             document.getElementById('map-explore-link').href = routeMaps[day];
         }
 
-        // ----------------------------------------------------
-        // 2. 編輯功能
-        // ----------------------------------------------------
-        function toggleEdit(btn) {
+        window.toggleEdit = function(btn) {
             const card = btn.closest('.group');
             const icon = btn.querySelector('.edit-icon');
             const isEditing = card.classList.contains('is-editing');
@@ -621,7 +696,8 @@
                 icon.classList.remove('fa-check', 'text-green-600');
                 icon.classList.add('fa-pen');
                 editables.forEach(el => el.contentEditable = "false");
-                saveItineraryData();
+                // 呼叫 Firebase 的儲存函數
+                if(window.saveItineraryData) window.saveItineraryData();
             } else {
                 card.classList.add('is-editing');
                 icon.classList.remove('fa-pen');
@@ -631,39 +707,17 @@
             }
         }
 
-        function saveItineraryData() {
-            const editables = document.querySelectorAll('.editable-content');
-            const data = {};
-            editables.forEach((el, index) => { data['item-' + index] = el.innerText; });
-            localStorage.setItem('kinmenItineraryData', JSON.stringify(data));
-        }
-
-        function loadItineraryData() {
-            const savedData = localStorage.getItem('kinmenItineraryData');
-            if (!savedData) return;
-            const data = JSON.parse(savedData);
-            document.querySelectorAll('.editable-content').forEach((el, index) => {
-                if (data['item-' + index] !== undefined) el.innerText = data['item-' + index];
-            });
-        }
-
-        // ----------------------------------------------------
-        // 3. 逐筆結算功能 (收合展開、整體捲動)
-        // ----------------------------------------------------
-        let expenses = [];
-        const members = ['Lee', 'Lin', 'Song', 'Wu'];
-
-        function toggleAccountingModal() {
+        window.toggleAccountingModal = function() {
             const modal = document.getElementById('accounting-modal');
             if (modal.classList.contains('hidden')) {
                 modal.classList.remove('hidden');
-                updateAccountingUI();
+                window.updateAccountingUI();
             } else {
                 modal.classList.add('hidden');
             }
         }
 
-        function addExpense() {
+        window.addExpense = function() {
             const itemInput = document.getElementById('acc-item');
             const amountInput = document.getElementById('acc-amount');
             const payerInput = document.getElementById('acc-payer');
@@ -683,52 +737,51 @@
                 return;
             }
 
-            // 新增時預設為「未結清」且「展開」狀態，方便查看
-            expenses.unshift({ id: Date.now(), item, amount, payer, sharedBy, isSettled: false, isExpanded: true });
+            // 新增時強制在最前面 (最上方) 並預設展開
+            window.expenses.unshift({ id: Date.now(), item, amount, payer, sharedBy, isSettled: false, isExpanded: true });
             
             itemInput.value = '';
             amountInput.value = '';
             payerInput.value = '';
-            saveExpenses();
-            updateAccountingUI();
+            
+            // 呼叫 Firebase 儲存函數
+            if(window.saveExpenses) window.saveExpenses();
+            window.updateAccountingUI();
         }
 
-        function deleteExpense(id) {
-            expenses = expenses.filter(exp => exp.id !== id);
-            saveExpenses();
-            updateAccountingUI();
+        window.deleteExpense = function(id) {
+            window.expenses = window.expenses.filter(exp => exp.id !== id);
+            if(window.saveExpenses) window.saveExpenses();
+            window.updateAccountingUI();
         }
 
-        // 切換單筆的展開/收合狀態
-        function toggleExpand(id) {
-            const expIndex = expenses.findIndex(e => e.id === id);
+        window.toggleExpand = function(id) {
+            const expIndex = window.expenses.findIndex(e => e.id === id);
             if(expIndex > -1) {
-                expenses[expIndex].isExpanded = !expenses[expIndex].isExpanded;
-                saveExpenses();
-                updateAccountingUI();
+                window.expenses[expIndex].isExpanded = !window.expenses[expIndex].isExpanded;
+                window.updateAccountingUI(); // 只更新 UI，展開狀態不傳 Firebase
             }
         }
 
-        // 切換單筆結清狀態，不觸發收合事件 (使用 stopPropagation)
-        function toggleSettled(event, id) {
+        window.toggleSettled = function(event, id) {
             event.stopPropagation();
-            const expIndex = expenses.findIndex(e => e.id === id);
+            const expIndex = window.expenses.findIndex(e => e.id === id);
             if(expIndex > -1) {
-                expenses[expIndex].isSettled = !expenses[expIndex].isSettled;
-                saveExpenses();
-                updateAccountingUI();
+                window.expenses[expIndex].isSettled = !window.expenses[expIndex].isSettled;
+                if(window.saveExpenses) window.saveExpenses();
+                window.updateAccountingUI();
             }
         }
 
-        function updateAccountingUI() {
+        window.updateAccountingUI = function() {
             const listEl = document.getElementById('expense-list');
-
             listEl.innerHTML = '';
-            if (expenses.length === 0) {
+
+            if (window.expenses.length === 0) {
                 listEl.innerHTML = '<li class="text-gray-400 italic text-center text-lg py-10">目前無消費紀錄</li>';
             } else {
-                expenses.forEach(exp => {
-                    const sharers = exp.sharedBy && exp.sharedBy.length > 0 ? exp.sharedBy : members;
+                window.expenses.forEach(exp => {
+                    const sharers = exp.sharedBy && exp.sharedBy.length > 0 ? exp.sharedBy : window.members;
                     let splitAmount = Math.round(exp.amount / sharers.length);
 
                     let debtors = sharers.filter(s => s !== exp.payer);
@@ -740,7 +793,6 @@
                         transferText = `<span class="text-gray-500"><i class="fa-solid fa-check"></i> 自付自用，無需轉帳</span>`;
                     }
 
-                    // 處理結清狀態的視覺效果
                     const isSettled = exp.isSettled || false;
                     const isExpanded = exp.isExpanded || false;
                     
@@ -750,24 +802,22 @@
                         : 'bg-torinoko/50 text-rurikon border-rurikon hover:bg-yamabuki hover:text-white hover:border-yamabuki';
                     const statusIcon = isSettled ? '<i class="fa-solid fa-check-circle"></i> 已結清' : '<i class="fa-regular fa-circle"></i> 標記為結清';
                     
-                    // 簡易狀態文字
                     const briefStatus = isSettled ? '<span class="text-green-600">✅ 已結清</span>' : '<span class="text-retroRed">⚠️ 未結清</span>';
 
                     const li = document.createElement('li');
                     li.className = `flex flex-col border-2 border-rurikon/20 bg-gray-50 rounded-xl transition-all duration-300 ${opacityClass}`;
                     
-                    // 組合 HTML：Header(簡易明細) + Detail(完整明細)
                     li.innerHTML = `
-                        <div class="p-4 cursor-pointer flex justify-between items-center" onclick="toggleExpand(${exp.id})">
-                            <div class="flex flex-col">
-                                <span class="text-rurikon font-bold text-xl flex items-center">
+                        <div class="p-4 cursor-pointer flex justify-between items-center" onclick="window.toggleExpand(${exp.id})">
+                            <div class="flex flex-col flex-1">
+                                <span class="text-rurikon font-bold text-xl flex items-center line-clamp-1">
                                     <i class="fa-solid fa-tag text-yamabuki mr-2"></i>${exp.item}
                                 </span>
                                 <span class="text-sm text-gray-500 mt-2">
-                                    <i class="fa-solid fa-wallet"></i> ${exp.payer} 墊錢 | <i class="fa-solid fa-users"></i> ${sharers.length}人分攤
+                                    <i class="fa-solid fa-wallet"></i> ${exp.payer}墊 | <i class="fa-solid fa-users"></i> ${sharers.length}人分攤
                                 </span>
                             </div>
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-3 shrink-0 ml-2">
                                 <div class="text-right">
                                     <div class="font-bold text-rurikon text-xl mb-1">$${exp.amount}</div>
                                     <div class="font-bold text-xs">${briefStatus}</div>
@@ -781,10 +831,10 @@
                                 ${transferText}
                             </div>
                             <div class="flex justify-between items-center mt-2">
-                                <button onclick="event.stopPropagation(); deleteExpense(${exp.id})" class="text-gray-400 hover:text-retroRed font-bold transition-colors px-2 py-2">
+                                <button onclick="event.stopPropagation(); window.deleteExpense(${exp.id})" class="text-gray-400 hover:text-retroRed font-bold transition-colors px-2 py-2">
                                     <i class="fa-solid fa-trash-can mr-1"></i> 刪除此筆
                                 </button>
-                                <button onclick="toggleSettled(event, ${exp.id})" class="px-5 py-2 rounded-full border-2 text-sm font-bold transition-colors ${statusBtnClass} shadow-sm active:translate-y-1">
+                                <button onclick="window.toggleSettled(event, ${exp.id})" class="px-5 py-2 rounded-full border-2 text-sm font-bold transition-colors ${statusBtnClass} shadow-sm active:translate-y-1">
                                     ${statusIcon}
                                 </button>
                             </div>
@@ -795,19 +845,19 @@
             }
         }
 
-        function copyToLine() {
-            if (expenses.length === 0) {
+        window.copyToLine = function() {
+            if (window.expenses.length === 0) {
                 alert('目前沒有帳目可以複製喔！');
                 return;
             }
 
             let lineText = `【金門旅遊案內 - 逐筆結算明細】\n\n`;
 
-            // 為了讓 LINE 的顯示按照時間順序（舊到新），將 array 反轉回來
-            const sortedExpenses = [...expenses].reverse();
+            // 將 array 反轉回來，照時間舊到新
+            const sortedExpenses = [...window.expenses].reverse();
 
             sortedExpenses.forEach(exp => {
-                const sharers = exp.sharedBy && exp.sharedBy.length > 0 ? exp.sharedBy : members;
+                const sharers = exp.sharedBy && exp.sharedBy.length > 0 ? exp.sharedBy : window.members;
                 let splitAmount = Math.round(exp.amount / sharers.length);
                 let debtors = sharers.filter(s => s !== exp.payer);
                 let settledText = exp.isSettled ? "(✅ 已結清)" : "(⚠️ 未結清)";
@@ -828,109 +878,6 @@
                 alert('複製失敗，請手動選取複製。');
             });
         }
-
-        function saveExpenses() {
-            localStorage.setItem('kinmenExpenses', JSON.stringify(expenses));
-        }
-
-        function loadExpenses() {
-            const saved = localStorage.getItem('kinmenExpenses');
-            if (saved) {
-                // 為了避免版面過長，重整頁面載入時，將所有明細的「展開狀態」預設為關閉
-                let parsedExpenses = JSON.parse(saved);
-                parsedExpenses.forEach(exp => exp.isExpanded = false); 
-                expenses = parsedExpenses;
-            }
-        }
-
-        window.onload = () => {
-            loadItineraryData();
-            loadExpenses();
-        };
     </script>
-    <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    // 🔴 這裡換成您的 Firebase 專案設定！
-    const firebaseConfig = {
-        apiKey: "AIzaSyD5pyfnW32YygLY1gRS0pXCA2yenuGufSU",
-  authDomain: "kinmen-tour.firebaseapp.com",
-  projectId: "kinmen-tour",
-  storageBucket: "kinmen-tour.firebasestorage.app",
-  messagingSenderId: "583201569429",
-  appId: "1:583201569429:web:fbe0c971c220744a81399c",
-  measurementId: "G-58BCBL5HQ7"
-
-    };
-
-    // 初始化 Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    
-    // 設定一個固定的文件 ID 來當作這個行程的房間
-    const TOUR_DOC_REF = doc(db, "tours", "kinmen2026"); 
-
-    // --- 改寫原本的儲存邏輯 ---
-    
-    // 儲存行程表
-    window.saveItineraryData = async function() {
-        const editables = document.querySelectorAll('.editable-content');
-        const data = {};
-        editables.forEach((el, index) => { data['item-' + index] = el.innerText; });
-        
-        // 寫入 Firebase
-        await setDoc(TOUR_DOC_REF, { itinerary: data }, { merge: true });
-    };
-
-    // 儲存記帳明細
-    window.saveExpenses = async function() {
-        // 寫入 Firebase
-        await setDoc(TOUR_DOC_REF, { expenses: window.expenses }, { merge: true });
-    };
-
-    // --- 改寫原本的讀取邏輯 (加入即時監聽) ---
-    
-    window.loadDataFromFirebase = function() {
-        // onSnapshot 會在資料庫有變動時「即時」更新網頁，實現多人協作！
-        onSnapshot(TOUR_DOC_REF, (docSnap) => {
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                
-                // 1. 更新行程表
-                if (data.itinerary) {
-                    document.querySelectorAll('.editable-content').forEach((el, index) => {
-                        if (data.itinerary['item-' + index] !== undefined) {
-                            el.innerText = data.itinerary['item-' + index];
-                        }
-                    });
-                }
-
-                // 2. 更新記帳明細
-                if (data.expenses) {
-                    window.expenses = data.expenses;
-                    window.updateAccountingUI(); // 呼叫更新畫面的函數
-                }
-            }
-        });
-    };
-
-    // 頁面載入時啟動
-    window.addEventListener('DOMContentLoaded', () => {
-        loadDataFromFirebase();
-    });
-</script>
-
-<script>
-    // 定義全域變數
-    window.expenses = [];
-    const members = ['Lee', 'Lin', 'Song', 'Wu'];
-
-    // 將您原本的函數都加上 window. 前綴，例如：
-    window.toggleAccountingModal = function() { /* 原本的程式碼 */ };
-    window.addExpense = function() { /* 原本的程式碼，裡面原本呼叫 saveExpenses() 的地方不用改 */ };
-    window.deleteExpense = function(id) { /* 原本的程式碼 */ };
-    window.updateAccountingUI = function() { /* 原本的程式碼 */ };
-    // ...以此類推，保留原本 UI 操作的程式碼
-</script>
 </body>
+</html>
