@@ -49,38 +49,20 @@
         }
 
         /* 標籤樣式 */
-        .tag-category {
-            border: 1px solid #1B2A49;
-            background-color: #E2D5BE;
-            color: #1B2A49;
-        }
-        
+        .tag-category { border: 1px solid #1B2A49; background-color: #E2D5BE; color: #1B2A49; }
         .tag-highlight-eat { background-color: #F8B500; color: #1B2A49; border: 1px solid #1B2A49; }
         .tag-highlight-buy { background-color: #D94F3D; color: white; border: 1px solid #1B2A49; }
         .tag-highlight-photo { background-color: #4A7B59; color: white; border: 1px solid #1B2A49; }
 
         /* 隱藏捲軸 */
-        ::-webkit-scrollbar {
-            display: none;
-        }
+        ::-webkit-scrollbar { display: none; }
 
-        .tab-active {
-            background-color: #1B2A49;
-            color: #F8B500;
-        }
-        .tab-inactive {
-            background-color: white;
-            color: #1B2A49;
-            border-bottom: 2px solid #1B2A49;
-        }
+        .tab-active { background-color: #1B2A49; color: #F8B500; }
+        .tab-inactive { background-color: white; color: #1B2A49; border-bottom: 2px solid #1B2A49; }
         
         /* 地圖與編輯按鈕特效 */
-        .action-btn {
-            transition: all 0.2s ease;
-        }
-        .action-btn:hover {
-            transform: scale(1.1);
-        }
+        .action-btn { transition: all 0.2s ease; }
+        .action-btn:hover { transform: scale(1.1); }
 
         /* 編輯模式的視覺提示 */
         [contenteditable="true"] {
@@ -107,13 +89,13 @@
         </header>
 
         <div class="flex justify-between px-4 mt-4 font-bold">
-            <button onclick="window.switchTab('day1')" id="btn-day1" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-0 border-rurikon showa-card tab-active z-10 translate-y-[2px]">
+            <button onclick="switchTab('day1')" id="btn-day1" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-0 border-rurikon showa-card tab-active z-10 translate-y-[2px]">
                 Day 1<br><span class="text-xs font-normal">6/27 (六)</span>
             </button>
-            <button onclick="window.switchTab('day2')" id="btn-day2" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
+            <button onclick="switchTab('day2')" id="btn-day2" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
                 Day 2<br><span class="text-xs font-normal">6/28 (日)</span>
             </button>
-            <button onclick="window.switchTab('day3')" id="btn-day3" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
+            <button onclick="switchTab('day3')" id="btn-day3" class="flex-1 py-2 text-center rounded-t-xl border-2 border-b-2 border-rurikon tab-inactive ml-2">
                 Day 3<br><span class="text-xs font-normal">6/29 (一)</span>
             </button>
         </div>
@@ -122,7 +104,7 @@
 
             <div id="day1" class="space-y-5">
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">07:50 啟程</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -135,7 +117,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">11:30 午餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -151,7 +133,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -168,7 +150,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -184,7 +166,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:00 晚餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -200,7 +182,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">晚上 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -216,7 +198,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">21:30 宵夜</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -232,7 +214,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">住宿</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -247,7 +229,7 @@
                 </div>
 
                 <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
                     <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">初夏金門紫外線強烈，海邊風大但日照炎熱。</span></p>
                     <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">輕便透氣夏裝、防曬薄外套（進坑道也保暖）、好走抗滑的運動鞋。</span></p>
@@ -256,7 +238,7 @@
 
             <div id="day2" class="space-y-5 hidden">
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">早餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -272,7 +254,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">上午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -288,7 +270,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">11:30 午餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -304,7 +286,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -320,7 +302,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -336,7 +318,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:00 晚餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -352,7 +334,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">夜間 活動</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -367,36 +349,8 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
-                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">宵夜</div>
-                    <div class="mt-2">
-                        <h3 class="text-lg font-bold flex items-center pr-8">
-                            <span class="editable-content">大廟口熱炒</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=金門+大廟口海鮮熱炒" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
-                        </h3>
-                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span></div>
-                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
-                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">拍出廟口辦桌、露天吃熱炒的豪邁在地氛圍。</span></p>
-                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">夜間市區可於路邊找車格臨停。</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
-                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">住宿</div>
-                    <div class="mt-2">
-                        <h3 class="text-lg font-bold flex items-center pr-8">
-                            <span class="editable-content">海福商務旅館</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=金門+海福商務旅館" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
-                        </h3>
-                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-bed"></i> 酒店</span></div>
-                    </div>
-                </div>
-
                 <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
                     <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">古寧頭海邊地形開闊，海風較強大，帽子記得戴緊。</span></p>
                     <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">裙裝或短褲皆可，夜遊後浦小鎮需走動較長時間，務必穿著好走的休閒鞋。</span></p>
@@ -405,7 +359,7 @@
 
             <div id="day3" class="space-y-5 hidden">
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">早餐</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -421,7 +375,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">上午 景點</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -437,55 +391,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
-                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">午餐</div>
-                    <div class="mt-2">
-                        <h3 class="text-lg font-bold flex items-center pr-8">
-                            <span class="editable-content">新天地海產店</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=金門+新天地海產店" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
-                        </h3>
-                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-utensils"></i> 食物</span></div>
-                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
-                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">新鮮肥美的海鮮大餐特寫。</span></p>
-                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">復國墩漁港周邊極好停車。</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
-                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午 景點</div>
-                    <div class="mt-2">
-                        <h3 class="text-lg font-bold flex items-center pr-8">
-                            <span class="editable-content">沙美摩洛哥</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=金門+沙美摩洛哥" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
-                        </h3>
-                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-camera"></i> 景點</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-photo font-bold">#必拍</span></div>
-                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
-                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">在土黃色廢墟牆垣間，利用光影拍出中東異國風情的網美照。</span></p>
-                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">沙美老街周邊有公共停車場。</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
-                    <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">下午茶</div>
-                    <div class="mt-2">
-                        <h3 class="text-lg font-bold flex items-center pr-8">
-                            <span class="editable-content">愜意甜點工作室</span>
-                            <a href="https://www.google.com/maps/search/?api=1&query=金門+愜意甜點工作室" target="_blank" class="ml-2 inline-flex items-center justify-center w-7 h-7 rounded-full bg-torinoko text-rurikon border border-rurikon hover:bg-yamabuki hover:text-white transition-colors action-btn"><i class="fa-solid fa-location-dot text-sm"></i></a>
-                        </h3>
-                        <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-mug-hot"></i> 食物</span><span class="text-xs px-2 py-1 rounded-full tag-highlight-buy font-bold">#必買</span></div>
-                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
-                            <p class="mb-1"><span class="font-bold text-retroRed">💡 拍照小技巧：</span><span class="editable-content">閩南古厝中庭吃法式甜點的衝突美感，甜點造型精緻必拍。</span></p>
-                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">位於沙美巷弄內，車停沙美老街外圍走進去。</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl p-4 showa-card relative group">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-300 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <div class="editable-content absolute -top-3 -left-2 bg-rurikon text-yamabuki px-3 py-1 font-bold rounded-lg border-2 border-rurikon transform -rotate-6 text-sm">18:20 返程</div>
                     <div class="mt-2">
                         <h3 class="text-lg font-bold flex items-center pr-8">
@@ -494,14 +400,11 @@
                         </h3>
                         <p class="editable-content text-sm mt-1 text-gray-600">立榮航空 B7-8962 (KNH 18:20 - RMQ 19:20)</p>
                         <div class="flex flex-wrap gap-2 mt-2"><span class="text-xs px-2 py-1 rounded-full tag-category font-bold"><i class="fa-solid fa-plane"></i> 交通</span></div>
-                        <div class="mt-3 bg-torinoko/30 p-3 rounded-lg border border-rurikon/20 text-sm">
-                            <p><span class="font-bold text-rurikon">🚗 停車＆加油：</span><span class="editable-content">前往機場前記得將租車加滿油歸還。</span></p>
-                        </div>
                     </div>
                 </div>
-
+                
                 <div class="bg-yamabuki/20 border-2 border-yamabuki rounded-2xl p-4 mt-6 showa-card relative group border-0">
-                    <button onclick="window.toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
+                    <button onclick="toggleEdit(this)" class="absolute top-3 right-3 text-gray-400 hover:text-green-600 transition-colors z-10 action-btn"><i class="fa-solid fa-pen edit-icon text-lg"></i></button>
                     <h4 class="font-bold text-lg mb-2 text-rurikon"><i class="fa-solid fa-clipboard-list"></i> 導遊的貼心叮嚀</h4>
                     <p class="text-sm mb-2"><strong>☀️ 天氣提示：</strong><span class="editable-content">準備滿載而歸，把握最後一天好天氣拍美照。</span></p>
                     <p class="text-sm"><strong>👗 建議穿著：</strong><span class="editable-content">由於要去沙美摩洛哥，推薦穿著大地色、白色或亮色系服飾，拍照效果最佳！</span></p>
@@ -519,17 +422,18 @@
                 <i class="fa-solid fa-map-location-dot text-xl mb-1"></i>
                 <span class="text-[10px] font-bold">地圖探索</span>
             </a>
-            <button class="flex flex-col items-center opacity-50 hover:opacity-80 transition-opacity cursor-pointer" onclick="window.toggleAccountingModal()">
+            <button class="flex flex-col items-center opacity-50 hover:opacity-80 transition-opacity cursor-pointer" onclick="toggleAccountingModal()">
                 <i class="fa-solid fa-file-invoice-dollar text-xl mb-1"></i>
                 <span class="text-[10px] font-bold">逐筆結算</span>
             </button>
         </nav>
+
     </div>
 
     <div id="accounting-modal" class="fixed inset-0 bg-rurikon/80 z-[100] hidden flex-col justify-end w-full max-w-md mx-auto">
         <div class="bg-torinoko rounded-t-3xl w-full h-[90vh] p-5 pb-10 shadow-2xl overflow-y-auto relative modal-enter">
             
-            <button onclick="window.toggleAccountingModal()" class="absolute top-5 right-5 text-2xl text-rurikon hover:text-retroRed transition-colors z-10">
+            <button onclick="toggleAccountingModal()" class="absolute top-5 right-5 text-2xl text-rurikon hover:text-retroRed transition-colors z-10">
                 <i class="fa-solid fa-circle-xmark"></i>
             </button>
             
@@ -559,7 +463,7 @@
                         </div>
                     </div>
 
-                    <button onclick="window.addExpense()" class="w-full bg-rurikon text-yamabuki font-bold py-3 text-lg rounded-lg border-2 border-rurikon hover:bg-yamabuki hover:text-rurikon transition-colors mt-2 shadow-md active:translate-y-1">
+                    <button onclick="addExpense()" class="w-full bg-rurikon text-yamabuki font-bold py-3 text-lg rounded-lg border-2 border-rurikon hover:bg-yamabuki hover:text-rurikon transition-colors mt-2 shadow-md active:translate-y-1">
                         <i class="fa-solid fa-plus mr-1"></i> 新增此筆花費
                     </button>
                 </div>
@@ -574,30 +478,33 @@
                     </ul>
             </div>
 
-            <button onclick="window.copyToLine()" class="w-full bg-[#06C755] text-white font-bold text-lg py-4 rounded-xl shadow-[0_5px_0_#049640] active:translate-y-1 active:shadow-[0_0px_0_#049640] transition-all flex justify-center items-center gap-2 mb-4">
+            <button onclick="copyToLine()" class="w-full bg-[#06C755] text-white font-bold text-lg py-4 rounded-xl shadow-[0_5px_0_#049640] active:translate-y-1 active:shadow-[0_0px_0_#049640] transition-all flex justify-center items-center gap-2 mb-4">
                 <i class="fa-brands fa-line text-2xl"></i> 複製逐筆明細到 LINE
             </button>
+            
         </div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
         // 修正引入 firebase-firestore.js
-        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // 您的 Firebase 專案設定
         const firebaseConfig = {
-            apiKey: "AIzaSyAlb9dZO_8xdboc2Kj1Tg7M_ATU4e-qTIg",
-            authDomain: "kinmen-tour2.firebaseapp.com",
-            projectId: "kinmen-tour2",
-            storageBucket: "kinmen-tour2.firebasestorage.app",
-            messagingSenderId: "910217771036",
-            appId: "1:910217771036:web:230f2456fe69c41523c7d9",
-            measurementId: "G-H5MXP77W8N"
-        };
+           apiKey: "AIzaSyAlb9dZO_8xdboc2Kj1Tg7M_ATU4e-qTIg",
+  authDomain: "kinmen-tour2.firebaseapp.com",
+  projectId: "kinmen-tour2",
+  storageBucket: "kinmen-tour2.firebasestorage.app",
+  messagingSenderId: "910217771036",
+  appId: "1:910217771036:web:230f2456fe69c41523c7d9",
+  measurementId: "G-H5MXP77W8N"
+};
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        
+        console.log("🔥 Firebase 資料庫連線成功！並且已經開啟測試模式讀寫權限！");
         
         // 設定一個固定的文件 ID 來當作這個行程的房間
         const TOUR_DOC_REF = doc(db, "tours", "kinmen2026"); 
@@ -696,7 +603,7 @@
                 icon.classList.remove('fa-check', 'text-green-600');
                 icon.classList.add('fa-pen');
                 editables.forEach(el => el.contentEditable = "false");
-                // 呼叫 Firebase 的儲存函數
+                // 呼叫 Firebase 的儲存函數 (如果有連上則會寫入雲端)
                 if(window.saveItineraryData) window.saveItineraryData();
             } else {
                 card.classList.add('is-editing');
@@ -759,7 +666,7 @@
             const expIndex = window.expenses.findIndex(e => e.id === id);
             if(expIndex > -1) {
                 window.expenses[expIndex].isExpanded = !window.expenses[expIndex].isExpanded;
-                window.updateAccountingUI(); // 只更新 UI，展開狀態不傳 Firebase
+                window.updateAccountingUI(); // 只更新 UI，展開狀態不傳送 Firebase
             }
         }
 
