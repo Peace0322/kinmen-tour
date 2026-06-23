@@ -848,5 +848,89 @@
             loadExpenses();
         };
     </script>
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 🔴 這裡換成您的 Firebase 專案設定！
+    const firebaseConfig = {
+        apiKey: "AIzaSyD5pyfnW32YygLY1gRS0pXCA2yenuGufSU",
+  authDomain: "kinmen-tour.firebaseapp.com",
+  projectId: "kinmen-tour",
+  storageBucket: "kinmen-tour.firebasestorage.app",
+  messagingSenderId: "583201569429",
+  appId: "1:583201569429:web:fbe0c971c220744a81399c",
+  measurementId: "G-58BCBL5HQ7"
+
+    };
+
+    // 初始化 Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    // 設定一個固定的文件 ID 來當作這個行程的房間
+    const TOUR_DOC_REF = doc(db, "tours", "kinmen2026"); 
+
+    // --- 改寫原本的儲存邏輯 ---
+    
+    // 儲存行程表
+    window.saveItineraryData = async function() {
+        const editables = document.querySelectorAll('.editable-content');
+        const data = {};
+        editables.forEach((el, index) => { data['item-' + index] = el.innerText; });
+        
+        // 寫入 Firebase
+        await setDoc(TOUR_DOC_REF, { itinerary: data }, { merge: true });
+    };
+
+    // 儲存記帳明細
+    window.saveExpenses = async function() {
+        // 寫入 Firebase
+        await setDoc(TOUR_DOC_REF, { expenses: window.expenses }, { merge: true });
+    };
+
+    // --- 改寫原本的讀取邏輯 (加入即時監聽) ---
+    
+    window.loadDataFromFirebase = function() {
+        // onSnapshot 會在資料庫有變動時「即時」更新網頁，實現多人協作！
+        onSnapshot(TOUR_DOC_REF, (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                
+                // 1. 更新行程表
+                if (data.itinerary) {
+                    document.querySelectorAll('.editable-content').forEach((el, index) => {
+                        if (data.itinerary['item-' + index] !== undefined) {
+                            el.innerText = data.itinerary['item-' + index];
+                        }
+                    });
+                }
+
+                // 2. 更新記帳明細
+                if (data.expenses) {
+                    window.expenses = data.expenses;
+                    window.updateAccountingUI(); // 呼叫更新畫面的函數
+                }
+            }
+        });
+    };
+
+    // 頁面載入時啟動
+    window.addEventListener('DOMContentLoaded', () => {
+        loadDataFromFirebase();
+    });
+</script>
+
+<script>
+    // 定義全域變數
+    window.expenses = [];
+    const members = ['Lee', 'Lin', 'Song', 'Wu'];
+
+    // 將您原本的函數都加上 window. 前綴，例如：
+    window.toggleAccountingModal = function() { /* 原本的程式碼 */ };
+    window.addExpense = function() { /* 原本的程式碼，裡面原本呼叫 saveExpenses() 的地方不用改 */ };
+    window.deleteExpense = function(id) { /* 原本的程式碼 */ };
+    window.updateAccountingUI = function() { /* 原本的程式碼 */ };
+    // ...以此類推，保留原本 UI 操作的程式碼
+</script>
 </body>
-</html>
